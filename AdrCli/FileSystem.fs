@@ -6,12 +6,6 @@ module FileSystem =
     let private isProjectRootDirectory (dir : DirectoryInfo) =
         dir.GetDirectories() |> Seq.exists (fun d -> d.Name = ".adr")
 
-    let rec private follow next x =
-        seq {
-            yield x
-            yield! follow next (next x) 
-        }
-
     let private parent (d : DirectoryInfo) = d.Parent
 
     let directoriesToRoot dir =
