@@ -17,6 +17,8 @@ module FileSystem =
     let getSettingsDirectory (currentDir : DirectoryInfo) : DirectoryInfo option =
         currentDir |> directoriesToRoot |> Seq.tryFind isProjectRootDirectory 
 
+    let cwd = System.Environment.CurrentDirectory |> DirectoryInfo
+
     let init (currentDir : DirectoryInfo) (repositoryPath : string option) =
         currentDir.CreateSubdirectory(".adr") |> ignore
         if(repositoryPath |> Option.isSome) then
