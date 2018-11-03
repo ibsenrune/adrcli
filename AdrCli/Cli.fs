@@ -31,7 +31,10 @@ module Cli =
         
         cmd
         |> withHelp
-        |> onExecute (fun () -> FileSystem.init FileSystem.cwd (ofOption optionPath)) 
+        |> onExecute (fun () -> 
+            let repositoryPath = ofOption optionPath |> Option.defaultValue "./docs/adr"
+            let settings = { repositoryPath = repositoryPath } : FileSystem.Settings
+            FileSystem.init FileSystem.cwd settings) 
 
     let private addAction (cmd : CommandLineApplication) =
         let nameOption = cmd.Option("-n|--name", "The title of the ADR document you want to add", CommandOptionType.SingleValue)
