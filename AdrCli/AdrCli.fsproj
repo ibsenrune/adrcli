@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Configuration.fs" />
     <Compile Include="FileSystem.fs" />
     <Compile Include="Cli.fs" />
     <Compile Include="Program.fs" />

@@ -2,6 +2,7 @@ namespace AdrCli
 
 open McMaster.Extensions.CommandLineUtils
 open AdrCli
+open AdrCli.Configuration
 open McMaster.Extensions.CommandLineUtils
 
 module Options =
@@ -33,7 +34,7 @@ module Cli =
         |> withHelp
         |> onExecute (fun () -> 
             let repositoryPath = ofOption optionPath |> Option.defaultValue "./docs/adr"
-            let settings = { repositoryPath = repositoryPath } : FileSystem.Settings
+            let settings = { repositoryPath = repositoryPath } : Configuration.Settings
             FileSystem.init FileSystem.cwd settings) 
 
     let private addAction (cmd : CommandLineApplication) =
