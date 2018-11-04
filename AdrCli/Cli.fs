@@ -34,7 +34,7 @@ module Cli =
         |> withHelp
         |> onExecute (fun () -> 
             let repositoryPath = ofOption optionPath |> Option.defaultValue "./docs/adr"
-            let settings = { repositoryPath = repositoryPath } : Configuration.Settings
+            let settings = { repositoryPath = repositoryPath; editor = "vim"; template = "" } : Configuration.Settings
             FileSystem.init FileSystem.cwd settings) 
 
     let private addAction (cmd : CommandLineApplication) =

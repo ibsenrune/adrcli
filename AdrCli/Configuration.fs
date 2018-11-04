@@ -4,13 +4,29 @@ module Configuration =
 
     open System.Text.RegularExpressions
 
-    type Settings = { repositoryPath : string }
+    let (|Regex|_|) pattern input =
+        let m = Regex.Match(input, pattern, RegexOptions.Multiline)
+        if(m.Success)
+        then Some (m.Groups.[1].Value)
+        else None
+
+    type Settings = { 
+        editor : string
+        template : string
+        repositoryPath : string }
 
     let serialiseSettings (s : Settings) =
-        sprintf "settings:\n    repositoryPath: %s\n"  s.repositoryPath
+        sprintf "settings:\n    repositoryPath: %s\n    editor: %s\n    template: %s\n"  s.repositoryPath s.editor s.template
 
     let deserialiseSettings (s : string) =
-        let m = System.Text.RegularExpressions.Regex.Match(s, "^    repositoryPath: (.+)$", RegexOptions.Multiline)
-        if (m.Success) 
-        then Some ({ repositoryPath = m.Groups.[1].Value })
-        else None
+        optional {
+            let! repositoryPath = (|Regex|_|) "^    repositoryPath: (.+)$" s
+            let! editor = (|Regex|_|) "^    editor: (.+)$" s
+            let! template = (|Regex|_|) "^    template: (.+)$" s
+            return { 
+                repositoryPath = repositoryPath
+                editor = editor
+                template = template
+            }
+        }
+
