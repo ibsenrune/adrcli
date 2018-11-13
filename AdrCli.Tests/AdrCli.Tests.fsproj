@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="SettingsTests.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="hedgehog" Version="0.8.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AdrCli\AdrCli.fsproj" />
+  </ItemGroup>
+
+</Project>
